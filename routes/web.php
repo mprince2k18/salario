@@ -11,6 +11,27 @@
 |
 */
 
+
+// dashboard
+
+// index
+Route::get('/app/v1/dashboard','DashboardController@index')->name('dashboard');
+
+
+
+
+
+
+
+
+
+// default
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
