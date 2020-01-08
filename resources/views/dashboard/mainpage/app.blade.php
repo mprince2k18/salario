@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -16,7 +15,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
-    @include('dashboard.mainpage.css.index_css')
+
+    <!-- BEGIN: include_js-->
+      @yield('include_css')
+    <!-- END: include_js-->
+
 
     <script src="https://unpkg.com/feather-icons"></script>
 
@@ -26,11 +29,9 @@
   <!-- END: Head-->
 
   <style>
-
       .feather{
           width: 20px !important;
       }
-
       .menu-item,.menu-title{
           padding: 0 10px !important;
       }
@@ -38,6 +39,10 @@
 
   <!-- BEGIN: Body-->
   <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+
+
+
 
     <!-- BEGIN: Header-->
     @include('dashboard.mainpage.widgets.header_navbar')
@@ -58,6 +63,49 @@
         <div class="content-body">
 
 
+                    <!-- SESSION -->
+
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+
+                    @if (session('restore'))
+                    <div class="alert alert-success">
+                        {{ session('restore') }}
+                    </div>
+                    @endif
+
+                    @if (session('delete'))
+                    <div class="alert alert-danger">
+                        {{ session('delete') }}
+                    </div>
+                    @endif
+
+                    <!-- SESSION END-->
+              @if ($errors->any())
+
+
+
+                  <div class="alert alert-warning alert-dismissible fade show error_message" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+
+                    @foreach ($errors->all() as $error)
+                          <strong class="d-block">{{ $error }}</strong>
+                    @endforeach
+
+
+                  </div>
+
+
+
+              @endif
+
+
 @yield('content')
 
 
@@ -69,19 +117,30 @@
 
 
 <!-- BEGIN: Customizer-->
-  @include('dashboard.mainpage.widgets.customizer')
-<!-- Navbar Type Starts -->
+  @yield('customizer')
 <!-- END: Customizer-->
 
+<!-- BEGIN: footer-->
+  @yield('footer')
+<!-- END: footer-->
 
-@include('dashboard.mainpage.widgets.footer')
+<!-- BEGIN: include_js-->
+  @yield('include_js')
+<!-- END: include_js-->
 
 
-@include('dashboard.mainpage.js.index_js')
 
 <script>
 feather.replace({ class: 'foo', });
 </script>
+
+<script src="https://res.cloudinary.com/dvd2tat8q/raw/upload/v1571473785/js/sweetalert2.all_g3qaus.js"></script>
+
+
+<script type="text/javascript">
+  @include('sweetalert::alert')
+</script>
+
 
 </body>
 <!-- END: Body-->

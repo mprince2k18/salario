@@ -1,5 +1,12 @@
 @extends('dashboard.mainpage.app')
 
+@section('include_css')
+
+  @include('dashboard.mainpage.css.index_css')
+
+@endsection
+
+
 @section('content')
 
   <!-- Dashboard Analytics Start -->
@@ -458,5 +465,23 @@
 </section>
 <!-- Dashboard Analytics end -->
 
+
+@endsection
+
+@section('customizer')
+
+  @include('dashboard.mainpage.widgets.customizer')
+
+@endsection
+
+@section('footer')
+
+  @include('dashboard.mainpage.widgets.footer')
+
+@endsection
+
+@section('include_js')
+
+  @include('dashboard.mainpage.js.index_js')
 
 @endsection

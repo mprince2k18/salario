@@ -1,23 +1,28 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// BEGIN: DASHBOARD
 
+
+// BEGIN: DashboardController
 
 // dashboard
+Route::get('/app/v1/dashboard','DashboardController@index')->name('dashboard'); //index
 
-// index
-Route::get('/app/v1/dashboard','DashboardController@index')->name('dashboard');
+// END: DashboardController
 
 
+// BEGIN: StatusController
+
+// activation
+Route::get('/app/v1/dashboard/activation','StatusController@activation')->name('activation'); //activation
+
+// activation_create
+Route::post('/app/v1/dashboard/activation/create','StatusController@activation_create')->name('activation_create'); //activation
+
+// END: StatusController
+
+
+// END: DASHBOARD
 
 
 

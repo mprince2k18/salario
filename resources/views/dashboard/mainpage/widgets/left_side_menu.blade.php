@@ -63,7 +63,7 @@
 
       <li class=" nav-item"><a href="#"><i data-feather="list" class="foo"></i><span class="menu-title" data-i18n="Employee Management">Statuses</span></a>
         <ul class="menu-content">
-          <li><a href="activation.html"><i data-feather="shield" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Activation</span></a>
+          <li><a href="{{ route('activation') }}"><i data-feather="shield" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Activation</span></a>
           </li>
           <li><a href="designation.html"><i data-feather="git-pull-request" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Designation</span></a>
           </li>
