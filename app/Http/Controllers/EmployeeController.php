@@ -34,7 +34,7 @@ class EmployeeController extends Controller
     function create_employee(Request $request)
     {
 
-        // validation
+        // VALIDATION
 
         $request->validate([
           'fname'                             => 'required',
@@ -52,7 +52,7 @@ class EmployeeController extends Controller
           'status_id'                         => 'required',
           'photo'                             => 'required|mimes:jpeg,png',
         ],[
-          // custom error message
+          // CUSTOM ERROR MESSAGE
           'fname.required'                    =>'First Name Is Required',
           'lname.required'                    =>'Last Name Is Required',
           'email.required'                    =>'Email Is Required',
@@ -69,7 +69,8 @@ class EmployeeController extends Controller
         ]);
 
 
-        // insert
+        // INSERT
+
         $last_inserted_id = Employee::insertGetId([
           'fname'           =>$request->fname,
           'lname'           =>$request->lname,
@@ -100,11 +101,20 @@ class EmployeeController extends Controller
             ]);
           }
 
+        // Alert
 
-      Alert::toast('Employee Registered Successfully','success');
-      return back();
+        Alert::toast('Employee Registered Successfully','success');
+        return back();
+    }
 
 
+    // employee_list
+
+    function employee_list()
+    {
+
+      $employees = Employee::all();
+      return view('dashboard.employee.employee_list.employee_list',compact('employees'));
     }
 
 

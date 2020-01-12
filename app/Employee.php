@@ -28,4 +28,24 @@ class Employee extends Model
     'photo',
     'slug',
   ];
+
+  // relationBetweenDesignation
+
+  function relationBetweenDesignation()
+  {
+    return $this->hasOne('App\Designation','id','designation_id');
+  }
+
+  // relationBetweenStatus
+
+  function relationBetweenStatus()
+  {
+    return $this->hasOne('App\Activation','id','status_id');
+  }
+
+
+
+
+
+  // END
 }

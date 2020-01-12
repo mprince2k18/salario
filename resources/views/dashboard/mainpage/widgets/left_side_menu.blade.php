@@ -30,7 +30,7 @@
         <ul class="menu-content">
           <li class="{{ Route::currentRouteNamed('register_employee') ? 'active' : '' }}"><a href="{{ route('register_employee') }}"><i data-feather="user-plus" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Register Employee</span></a>
           </li>
-          <li><a href="employee_list.html"><i data-feather="users" class="foo"></i><span class="menu-item" data-i18n="Employee List">Employee List</span></a>
+          <li class="{{ Route::currentRouteNamed('employee_list') ? 'active' : '' }}"><a href="{{ route('employee_list') }}"><i data-feather="users" class="foo"></i><span class="menu-item" data-i18n="Employee List">Employee List</span></a>
           </li>
         </ul>
       </li>

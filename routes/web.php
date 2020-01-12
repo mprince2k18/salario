@@ -21,6 +21,9 @@ Route::get('/app/v1/dashboard/register/employee','EmployeeController@index')->na
 // create_employee
 Route::post('/app/v1/dashboard/register/employee/create','EmployeeController@create_employee')->name('create_employee'); //create_employee
 
+// employee_list
+Route::get('/app/v1/dashboard/employee/list','EmployeeController@employee_list')->name('employee_list'); //employee_list
+
 
 
 
