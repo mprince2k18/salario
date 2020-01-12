@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use App\User;
 use App\Activation;
 use App\Department;
 use App\Designation;
@@ -100,6 +101,16 @@ class EmployeeController extends Controller
         	'photo'          => $photo_name,
             ]);
           }
+
+
+          User::insert([
+            'name' => $request->fname.'-'.$request->lname,
+            'email' => $request->email,
+            'password' => bcrypt($request->contact_number),
+            'employee_id' => $request->designation_id,
+          ]);
+
+
 
         // Alert
 
