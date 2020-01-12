@@ -11,7 +11,7 @@ class Activation extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','slug'];
 
     // END
 }

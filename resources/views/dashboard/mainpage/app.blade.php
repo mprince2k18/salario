@@ -10,10 +10,20 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Dashboard</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title> Dashboard |
+        @isset($title)
+            {{ $title }}
+        @endisset
+    </title>
+
     <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.html">
     <link rel="shortcut icon" type="image/x-icon" href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_o5hd5vvqpoqiwwmi.css">
 
 
     <!-- BEGIN: include_js-->
@@ -28,6 +38,12 @@
   </head>
   <!-- END: Head-->
 
+
+  {{-- BEGIN: custom_css --}}
+  @yield('custom_css')
+  {{-- END: custom_css --}}
+
+
   <style>
       .feather{
           width: 20px !important;
@@ -35,6 +51,20 @@
       .menu-item,.menu-title{
           padding: 0 10px !important;
       }
+      /* .breadcrumb .breadcrumb-item+.breadcrumb-item:before{
+        content:'/';
+      }
+      .pagination .page-item.next .page-link:after{
+        content: '';
+      }
+      .pagination .page-item.previous .page-link:before{
+        content: '';
+      }
+
+      .dropdown-toggle::after{
+        content:' ' !important;
+      } */
+
 </style>
 
   <!-- BEGIN: Body-->
@@ -58,52 +88,14 @@
       <div class="content-overlay"></div>
       <div class="header-navbar-shadow"></div>
       <div class="content-wrapper">
-        <div class="content-header row">
-        </div>
+
+        @include('dashboard.mainpage.widgets.breadcrumbs')
+
         <div class="content-body">
 
 
-                    <!-- SESSION -->
 
-                    @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-
-                    @if (session('restore'))
-                    <div class="alert alert-success">
-                        {{ session('restore') }}
-                    </div>
-                    @endif
-
-                    @if (session('delete'))
-                    <div class="alert alert-danger">
-                        {{ session('delete') }}
-                    </div>
-                    @endif
-
-                    <!-- SESSION END-->
-              @if ($errors->any())
-
-
-
-                  <div class="alert alert-warning alert-dismissible fade show error_message" role="alert">
-
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-
-                    @foreach ($errors->all() as $error)
-                          <strong class="d-block">{{ $error }}</strong>
-                    @endforeach
-
-
-                  </div>
-
-
-
-              @endif
+          @include('dashboard.mainpage.widgets.error_session')
 
 
 @yield('content')
@@ -127,6 +119,10 @@
 <!-- BEGIN: include_js-->
   @yield('include_js')
 <!-- END: include_js-->
+
+  {{-- BEGIN: custom_js --}}
+  @yield('custom_js')
+  {{-- END: custom_js --}}
 
 
 

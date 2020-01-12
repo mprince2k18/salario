@@ -18,7 +18,7 @@
 
 <!-- Dashboard -->
 
-      <li class=" nav-item active"><a href="index.html"><i data-feather="home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
+      <li class=" nav-item {{ Route::currentRouteNamed('dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard') }}"><i data-feather="home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
       </li>
 
 <!-- Employee Management -->
@@ -26,9 +26,9 @@
 <li class=" navigation-header"><span>Employee Management</span>
 </li>
 
-      <li class=" nav-item"><a href="#"><i data-feather="user" class="foo"></i><span class="menu-title" data-i18n="Employee Management">Employee Management</span></a>
+      <li class="nav-item"><a href="#"><i data-feather="user" class="foo"></i><span class="menu-title" data-i18n="Employee Management">Employee Management</span></a>
         <ul class="menu-content">
-          <li><a href="employee_register.html"><i data-feather="user-plus" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Register Employee</span></a>
+          <li class="{{ Route::currentRouteNamed('register_employee') ? 'active' : '' }}"><a href="{{ route('register_employee') }}"><i data-feather="user-plus" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Register Employee</span></a>
           </li>
           <li><a href="employee_list.html"><i data-feather="users" class="foo"></i><span class="menu-item" data-i18n="Employee List">Employee List</span></a>
           </li>
@@ -63,13 +63,13 @@
 
       <li class=" nav-item"><a href="#"><i data-feather="list" class="foo"></i><span class="menu-title" data-i18n="Employee Management">Statuses</span></a>
         <ul class="menu-content">
-          <li><a href="{{ route('activation') }}"><i data-feather="shield" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Activation</span></a>
+          <li class="{{ Route::currentRouteNamed('activation','activation_edit') ? 'active' : '' }}"><a href="{{ route('activation') }}"><i data-feather="shield" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Activation</span></a>
           </li>
-          <li><a href="designation.html"><i data-feather="git-pull-request" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Designation</span></a>
+          <li class="{{ Route::currentRouteNamed('designation','designation_edit') ? 'active' : '' }}"><a href="{{ route('designation') }}"><i data-feather="git-pull-request" class="foo"></i><span class="menu-item" data-i18n="Register Employee">Designation</span></a>
           </li>
-          <li><a href="department.html"><i data-feather="git-merge" class="foo"></i><span class="menu-item" data-i18n="Employee List">Department</span></a>
+          <li class="{{ Route::currentRouteNamed('department','department_edit') ? 'active' : '' }}"><a href="{{ route('department') }}"><i data-feather="git-merge" class="foo"></i><span class="menu-item" data-i18n="Employee List">Department</span></a>
           </li>
-          <li><a href="gender.html"><i data-feather="hexagon" class="foo"></i><span class="menu-item" data-i18n="Employee List">Gender</span></a>
+          <li class="{{ Route::currentRouteNamed('gender','gender_edit') ? 'active' : '' }}"><a href="{{ route('gender') }}"><i data-feather="hexagon" class="foo"></i><span class="menu-item" data-i18n="Employee List">Gender</span></a>
           </li>
         </ul>
       </li>

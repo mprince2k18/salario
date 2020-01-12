@@ -1,9 +1,15 @@
-@extends('dashboard.mainpage.app')
+@extends('dashboard.mainpage.app', ['title' => 'Activation'])
 
 @section('include_css')
 
   @include('dashboard.status.activation.activation_css')
 
+@endsection
+
+
+@section('breadcrumb')
+  <li class="breadcrumb-item"><a href="{{ Route::currentRouteNamed() }}"></a>
+  </li>
 @endsection
 
 
@@ -21,11 +27,10 @@
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Actions
         </button>
+
+
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="feather icon-trash"></i>Delete</a>
-          <a class="dropdown-item" href="#"><i class="feather icon-archive"></i>Archive</a>
-          <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
-          <a class="dropdown-item" href="#"><i class="feather icon-save"></i>Another Action</a>
+          <a class="dropdown-item" href="{{ route('activation_multi_delete') }}" id="delete"><i data-feather="trash"></i>Delete All</a>
         </div>
       </div>
     </div>
@@ -33,60 +38,56 @@
 
   <!-- DataTable starts -->
   <div class="table-responsive">
-    <table class="table data-list-view">
+    <table class="table data-list-view" id="table_data">
       <thead>
         <tr>
           <th></th>
           <th>COMMENTS</th>
           <th>ID</th>
-
           <th>ACTION</th>
         </tr>
       </thead>
       <tbody>
 
 
-        <tr>
-          <td></td>
-          <td class="product-name">Active</td>
-          <td class="product-category">1</td>
-          <td class="product-action">
-            <span class="action-edit" id="insurance" data-value="Insurance" onclick="getInsurance()"><i data-feather="edit"></i></span>
-            <span class="action-delete"><i data-feather="trash"></i></span>
-          </td>
-        </tr>
 
 
-        <tr>
-          <td></td>
-          <td class="product-name">Deactive</td>
-          <td class="product-category">2</td>
-          <td class="product-action">
-            <span class="action-edit" id="insurance" data-value="Insurance" onclick="getInsurance()"><i data-feather="edit"></i></span>
-            <span class="action-delete"><i data-feather="trash"></i></span>
-          </td>
-        </tr>
 
 
-        <tr>
-          <td></td>
-          <td class="product-name">Blocked</td>
-          <td class="product-category">3</td>
-          <td class="product-action">
-            <span class="action-edit" id="insurance" data-value="Insurance" onclick="getInsurance()"><i data-feather="edit"></i></span>
-            <span class="action-delete"><i data-feather="trash"></i></span>
-          </td>
-        </tr>
+        @foreach ($activations as $activation)
 
-        <tr>
-          <td></td>
-          <td class="product-name">Outsiders</td>
-          <td class="product-category">3</td>
-          <td class="product-action">
-            <span class="action-edit" id="insurance" data-value="Insurance" onclick="getInsurance()"><i data-feather="edit"></i></span>
-            <span class="action-delete"><i data-feather="trash"></i></span>
-          </td>
-        </tr>
+<form action="{{ route('activation_multi_delete') }}" method="post">
+
+
+
+          <tr>
+            <td></td>
+            {{-- <td id="delete">
+              <input type="hidden" name="delete[]" value="{{ $activation->id }}">
+            </td> --}}
+            <td class="product-name">{{ $activation->name }}</td>
+            <td class="product-category">{{ $activation->id }}</td>
+            <td class="product-action">
+              <span>
+                <a href="{{ url('/app/v1/dashboard/activation/edit') }}/{{ $activation->id }}/{{ $activation->slug }}">
+                  <i data-feather="edit" class="primary"></i>
+                </a>
+                </span>
+              <span class="action-delete"><a href="{{ url('/app/v1/dashboard/activation/delete') }}/{{ $activation->id }}/{{ $activation->slug }}"><i data-feather="trash" class="danger"></i></a>
+              </span>
+            </td>
+          </tr>
+
+          </form>
+
+
+        @endforeach
+
+
+
+
+
+
 
 
 
@@ -101,10 +102,10 @@
     <div class="add-new-data">
       <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
         <div>
-          <h4 class="text-uppercase">List View Data</h4>
+          <h4 class="text-uppercase">ADD ACTIVATION COMMENTS</h4>
         </div>
         <div class="hide-data-sidebar">
-          <i class="feather icon-x"></i>
+          <i data-feather='x'></i>
         </div>
       </div>
       <div class="data-items pb-3">
@@ -129,8 +130,8 @@
             <div class="add-data-btn">
               <button class="btn btn-primary" type="submit">Add Data</button>
             </div>
-            <div class="cancel-data-btn">
-              <button class="btn btn-outline-danger">Cancel</button>
+            <div class="cancel-data-btn hide-data-sidebar">
+              <a class="btn btn-outline-danger">Cancel</a>
             </div>
           </div>
 
@@ -142,6 +143,7 @@
     </div>
   </div>
   <!-- add new sidebar ends -->
+
 </section>
 <!-- Data list view end -->
 
@@ -168,5 +170,42 @@
 @section('include_js')
 
   @include('dashboard.status.activation.activation_js')
+
+@endsection
+
+@section('custom_js')
+
+  <script type="text/javascript">
+
+
+    $(document).on('click', '#delete', function(){
+        var id = $(this).attr('id');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        if(confirm("Are you sure you want to Delete this data?"))
+        {
+            $.ajax({
+                url:"{{route('activation_multi_delete')}}",
+                mehtod:"get",
+                data:{id:id},
+                success:function(data)
+                {
+
+                    $('#table_data').DataTable().ajax.reload();
+                }
+            })
+        }
+        else
+        {
+            return false;
+        }
+    });
+
+</script>
 
 @endsection
